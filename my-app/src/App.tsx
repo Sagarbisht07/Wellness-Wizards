@@ -1,13 +1,12 @@
-import React from "react";
 import "./App.css";
+import Example from "./components/Example";
+import ProgressAnalytics from "./pages/ProgressAnalytics";
 
 function App() {
   return (
     <div className="App">
-      <h1 className="text-7xl text-blue-500"
-      
-      
-      >Hello world!</h1>
+      {/* <Example /> */}
+      <ProgressAnalytics />
     </div>
   );
 }
