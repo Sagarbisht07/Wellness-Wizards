@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 import MobileNav from "./MobileNavigation";
 import {
   Menu,
@@ -12,6 +13,15 @@ import { Link } from "react-router-dom";
 
 const Navbar = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
+  const [name, setName] = React.useState("");
+
+  let myName = localStorage.getItem("user");
+
+  React.useEffect(() => {
+    const name = myName ?? "";
+
+    setName(name);
+  }, []);
 
   const toggleHandler = () => {
     setIsOpen(!isOpen);
@@ -88,8 +98,20 @@ const Navbar = (): JSX.Element => {
               <Link to="/login">Login</Link>
             </NavLink>
           </NavList>
+          <NavList>
+            <NavLink
+              to="testimonials"
+              style={{
+                color: "black",
+                fontFamily: "dancing script",
+                fontSize: "1.2rem",
+              }}
+            >
+              <Link to="/register">Register</Link>
+            </NavLink>
+          </NavList>
           <StyledButton primary={true}>
-            <Link to={"/register"}>Become a member</Link>
+            Welcome {name.toUpperCase()}
           </StyledButton>
         </NavLists>
       </StyledNavbar>
