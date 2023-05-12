@@ -1,6 +1,4 @@
 import "./App.css";
-import Example from "./components/Example";
-import ProgressAnalytics from "./pages/ProgressAnalytics";
 import { ThemeProvider } from "styled-components";
 import "./App.css";
 import Router from "./Routes/Router";
@@ -19,6 +17,8 @@ function App() {
           <Router />
           <Footer />
         </div>
+
+        <div></div>
       </ThemeProvider>
     </div>
   );

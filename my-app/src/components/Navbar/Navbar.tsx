@@ -88,7 +88,9 @@ const Navbar = (): JSX.Element => {
               <Link to="/login">Login</Link>
             </NavLink>
           </NavList>
-          <StyledButton primary={true}>Become a member</StyledButton>
+          <StyledButton primary={true}>
+            <Link to={"/register"}>Become a member</Link>
+          </StyledButton>
         </NavLists>
       </StyledNavbar>
     </>
