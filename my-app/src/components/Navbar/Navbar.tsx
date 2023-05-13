@@ -9,6 +9,7 @@ import {
 } from "../styles/Navbar.styled";
 import { StyledButton } from "../styles/Button.styled";
 import { Link } from "react-router-dom";
+import Noti from "../../pages/Noti";
 
 const Navbar = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
@@ -85,6 +86,7 @@ const Navbar = (): JSX.Element => {
           </NavList>
           <StyledButton primary={true}>Become a member</StyledButton>
         </NavLists>
+        <Noti/>
       </StyledNavbar>
     </>
   );
