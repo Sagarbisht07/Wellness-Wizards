@@ -10,21 +10,36 @@ import {
 } from "../styles/Navbar.styled";
 import { StyledButton } from "../styles/Button.styled";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = React.useState("");
-
+  const navigate = useNavigate();
   let myName = localStorage.getItem("user");
 
   React.useEffect(() => {
     const name = myName ?? "";
-
     setName(name);
-  }, []);
+  }, [myName]);
 
   const toggleHandler = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleButtonClick = () => {
+    if (isLoggedIn()) {
+      // User is logged in, so log them out
+      localStorage.clear();
+      navigate("/");
+    } else {
+      // User is not logged in, so take them to login page
+      navigate("/login");
+    }
+  };
+
+  const isLoggedIn = () => {
+    return Boolean(localStorage.getItem("token"));
   };
 
   return (
@@ -58,8 +73,7 @@ const Navbar = (): JSX.Element => {
                 fontSize: "1.2rem",
               }}
             >
-              <Link to="/login">Nutritional</Link>
-              Nutritional
+              <Link to="/nutritional">Nutritional</Link>
             </NavLink>
           </NavList>
           <NavList>
@@ -83,7 +97,7 @@ const Navbar = (): JSX.Element => {
                 fontSize: "1.2rem",
               }}
             >
-              <Link to="/login"> Educational Resources</Link>
+              <Link to="/educational"> Educational Resources</Link>
             </NavLink>
           </NavList>
           <NavList>
@@ -95,7 +109,9 @@ const Navbar = (): JSX.Element => {
                 fontSize: "1.2rem",
               }}
             >
-              <Link to="/login">Login</Link>
+              <button onClick={handleButtonClick}>
+                {isLoggedIn() ? "Logout" : "Login"}
+              </button>
             </NavLink>
           </NavList>
           <NavList>
@@ -111,7 +127,7 @@ const Navbar = (): JSX.Element => {
             </NavLink>
           </NavList>
           <StyledButton primary={true}>
-            Welcome {name.toUpperCase()}
+            {`Welcome ${name.toUpperCase()}`}
           </StyledButton>
         </NavLists>
       </StyledNavbar>

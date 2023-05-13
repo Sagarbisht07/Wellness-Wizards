@@ -14,6 +14,7 @@ import {
 } from "../styles/Hero.styled";
 import { StyledButton } from "../styles/Button.styled";
 import React from "react";
+import { Link } from "react-router-dom";
 
 function calculateBMI(weight: number, height: number) {
   height = height / 100;
@@ -32,7 +33,7 @@ const Hero = (): JSX.Element => {
     let calculateBmi: number = calculateBMI(Number(myweight), Number(myheight));
     setBmi(calculateBmi);
     localStorage.setItem("bmi", calculateBmi.toString());
-  }, []);
+  }, [height, weight]);
 
   return (
     <MainHero>
@@ -59,13 +60,16 @@ const Hero = (): JSX.Element => {
         </MainDescription>
 
         <h1 style={{ color: "black", fontSize: "20px", fontWeight: "bold" }}>
-          YOUR BMI IS :- {bmi}
+          Your BMI is :- {bmi ? `${bmi} 😊` : "`Please login`👍"}
         </h1>
         <br />
         <MainButtons>
-          <StyledButton primary={true}>
-            Get Started <ArrowIcon />
-          </StyledButton>
+          <Link to={"/nutritional"}>
+            <StyledButton primary={true}>
+              Get Started <ArrowIcon />
+            </StyledButton>
+          </Link>
+
           <StyledButton>
             Learn More <PlayIcon />{" "}
           </StyledButton>

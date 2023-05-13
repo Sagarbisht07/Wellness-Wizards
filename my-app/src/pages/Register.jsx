@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const [isLoading, setIsLoading] = React.useState(false);
   const [data, setData] = React.useState({
     name: "",
     weight: 0,
@@ -17,14 +18,33 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios
-      .post(`${baseUrl}/users/register`, data)
-      .then((res) => {
+    setIsLoading(true);
+    try {
+      await axios.post(`${baseUrl}/users/register`, data).then((res) => {
         alert("sucessfull register");
         navigate("/login");
-      })
-      .catch((error) => console.log(error));
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  if (isLoading) {
+    return (
+      <h1
+        style={{
+          color: "red",
+          fontSize: "30px",
+          fontWeight: "bold",
+          textAlign: "center",
+        }}
+      >
+        Loading...
+      </h1>
+    );
+  }
 
   return (
     <>
