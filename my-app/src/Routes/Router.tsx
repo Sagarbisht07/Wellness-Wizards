@@ -8,20 +8,23 @@ import Form2 from "../pages/Form2";
 import Formresult from "../pages/Formresult";
 import Login from "../pages/Login";
 import Rigster from "../pages/Rigster";
-
+import ProgressAnalytics from "../pages/ProgressAnalytics";
+import Nutritional from "../pages/Nutritional";
 
 const Router = (): JSX.Element => {
   return (
     <div>
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/started" element={<Started/>} />
-        <Route path="/form" element={<Form/>} />
-        <Route path="/form2" element={<Form2/>} />
-        <Route path="/res" element={<Formresult/>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/register" element={<Rigster/>} />
-        <Route path="*" element={<Error/>} />
+        <Route path="/started" element={<Started />} />
+        <Route path="/form" element={<Form />} />
+        <Route path="/form2" element={<Form2 />} />
+        <Route path="/res" element={<Formresult />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Rigster />} />
+        <Route path="/nutritional" element={<Nutritional />} />
+        <Route path="/progress" element={<ProgressAnalytics />} />
+        <Route path="*" element={<Error />} />
       </Routes>
     </div>
   );

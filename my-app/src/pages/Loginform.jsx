@@ -1,11 +1,54 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
+
 const Loginform = () => {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [data, setData] = React.useState({
+    email: "",
+    password: "",
+  });
 
-  
+  const { email, password } = data;
+  const baseUrl = "https://wellness-q8lu.onrender.com";
+  const navigate = useNavigate();
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const res = await axios.post(`${baseUrl}/users/login`, data);
+      if (res.data.token) {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user", res.data.userName);
+        localStorage.setItem("height", res.data.height);
+        localStorage.setItem("weight", res.data.weight);
+        alert("Login successful");
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  if (isLoading) {
+    return (
+      <h1
+        style={{
+          color: "red",
+          fontSize: "30px",
+          fontWeight: "bold",
+          textAlign: "center",
+        }}
+      >
+        Loading...
+      </h1>
+    );
+  }
 
   return (
     <div>
@@ -16,9 +59,10 @@ const Loginform = () => {
           backgroundSize: "cover",
           backgroundPosition: "center",
           width: "30rem",
-        }}>
+        }}
+      >
         <div class="container flex items-center justify-center min-h-screen px-6 mx-auto">
-          <form class="w-full max-w-md">
+          <form onSubmit={handleSubmit} class="w-full max-w-md">
             <img class="w-1/2 mx-auto mb-4" src="logonew.png" alt="" />
 
             <h1 class="mt-3 text-2xl font-semibold text-gray-800 capitalize sm:text-3xl dark:text-white">
@@ -33,7 +77,8 @@ const Loginform = () => {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  stroke-width="2">
+                  stroke-width="2"
+                >
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -43,6 +88,8 @@ const Loginform = () => {
               </span>
 
               <input
+                value={email}
+                onChange={(e) => setData({ ...data, email: e.target.value })}
                 type="email"
                 class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Email address"
@@ -57,7 +104,8 @@ const Loginform = () => {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  stroke-width="2">
+                  stroke-width="2"
+                >
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -67,6 +115,8 @@ const Loginform = () => {
               </span>
 
               <input
+                value={password}
+                onChange={(e) => setData({ ...data, password: e.target.value })}
                 type="password"
                 class="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Password"
@@ -78,13 +128,12 @@ const Loginform = () => {
                 Sign in
               </button>
 
-              <p class="mt-4 text-center text-black">
-                OR LOGIN WITH  Google
-              </p>
+              <p class="mt-4 text-center text-black">OR LOGIN WITH Google</p>
 
               <a
                 href="https://accounts.google.com/v3/signin/identifier?dsh=S1728887675%3A1683961516291843&continue=https%3A%2F%2Fwww.google.com%3Fhl%3Den-US&ec=GAlA8wE&hl=en&flowName=GlifWebSignIn&flowEntry=AddSession"
-                class="flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                class="flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+              >
                 <svg class="w-6 h-6 mx-2" viewBox="0 0 40 40">
                   <path
                     d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z"
@@ -109,7 +158,8 @@ const Loginform = () => {
                   style={{
                     color: "blue.500",
                     cursor: "pointer",
-                  }}>
+                  }}
+                >
                   Sign in with Google
                 </span>
               </a>
@@ -117,7 +167,8 @@ const Loginform = () => {
               <div class="mt-6 text-center ">
                 <Link
                   to="/register"
-                  class="text-sm text-blue-500 hover:underline dark:text-blue-400">
+                  class="text-sm text-blue-500 hover:underline dark:text-blue-400"
+                >
                   Don’t have an account yet? Sign up
                 </Link>
               </div>

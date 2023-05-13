@@ -13,20 +13,40 @@ import {
   MainTitlte,
 } from "../styles/Hero.styled";
 import { StyledButton } from "../styles/Button.styled";
+import React from "react";
 import { Link } from "react-router-dom";
 
+function calculateBMI(weight: number, height: number) {
+  height = height / 100;
+  const bmi = weight / (height * height);
+  return Number(bmi.toFixed(2)); // return BMI rounded to two decimal places
+}
+
 const Hero = (): JSX.Element => {
+  const [bmi, setBmi] = React.useState(0.0);
+  const height = localStorage.getItem("height");
+  const weight = localStorage.getItem("weight");
+
+  React.useEffect(() => {
+    const myheight = height ?? "";
+    const myweight = weight ?? "";
+    let calculateBmi: number = calculateBMI(Number(myweight), Number(myheight));
+    setBmi(calculateBmi);
+    localStorage.setItem("bmi", calculateBmi.toString());
+  }, [height, weight]);
+
   return (
     <MainHero>
-      {/* Good health starts with what you eat. */}
       <MainDetails
         style={{
           marginLeft: "5rem",
-        }}>
+        }}
+      >
         <MainTitlte
           style={{
             color: "black",
-          }}>
+          }}
+        >
           Good health{" "}
           <MainTitleLine>
             starts <br />
@@ -38,12 +58,22 @@ const Hero = (): JSX.Element => {
           Want to eat more mindfully? Track meals, learn about your habits, and
           reach your goals with MyFitnessPal.
         </MainDescription>
+
+        <MainTitlte
+          style={{ color: "teal", fontSize: "30px", fontWeight: "bold" }}
+        >
+          Your BMI is :- {bmi ? `${bmi} 😊` : "`Please login`👍"}
+        </MainTitlte>
+        <br />
         <MainButtons>
-          <StyledButton primary={true}>
-            <Link to="/started">Get Started</Link> <ArrowIcon />
-          </StyledButton>
+          <Link to={"/nutritional"}>
+            <StyledButton primary={true}>
+              Get Started <ArrowIcon />
+            </StyledButton>
+          </Link>
+
           <StyledButton>
-            Learn More <PlayIcon />{" "}
+            <Link to={"/nutritional"}>Check Nutrition</Link> <PlayIcon />{" "}
           </StyledButton>
         </MainButtons>
       </MainDetails>
