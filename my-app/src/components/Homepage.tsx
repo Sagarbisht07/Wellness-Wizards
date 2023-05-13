@@ -1,5 +1,6 @@
 import React from "react";
 import Hero from "./Hero/Hero";
+import Coonect from "../pages/Coonect";
 
 const Homepage = (): JSX.Element => {
   return (
@@ -30,6 +31,7 @@ const Homepage = (): JSX.Element => {
         alt="random"
         className="w-11/12 mx-auto block cursor-pointer"
       />
+      <Coonect/>
     </div>
   );
 };

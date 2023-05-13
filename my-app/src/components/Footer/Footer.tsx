@@ -13,10 +13,10 @@ const Footer = (): JSX.Element => {
           style={{
             color: "black",
           }}>
-          INTREPIDE
+          Fitness Buddy
         </FooterLogo>
         <FooterDescription>
-          Intrepide is your new home in boutique wellness. We join the
+        Fitness Buddy is your new home in boutique wellness. We join the
           dependable standards of Pilates with forefront development to give
           you the most out of each exercise.
         </FooterDescription>
