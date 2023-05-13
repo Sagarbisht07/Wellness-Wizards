@@ -9,15 +9,10 @@ const Form2 = () => {
   let age = useRef();
   let dob = useRef();
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      name.current.value &&
-      age.current.value &&
-      dob.current.value 
-    ) {
+    if (name.current.value && age.current.value && dob.current.value) {
       navigate("/res");
     } else {
       Swal.fire({
@@ -92,7 +87,8 @@ const Form2 = () => {
                 <button
                   onClick={handleSubmit}
                   type="button"
-                  className="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                  className="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                >
                   Submit
                 </button>
               </span>
