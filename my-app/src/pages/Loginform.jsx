@@ -2,11 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Loginform = () => {
-
-  
-
-
-
   return (
     <div>
       <section
@@ -78,9 +73,7 @@ const Loginform = () => {
                 Sign in
               </button>
 
-              <p class="mt-4 text-center text-black">
-                OR LOGIN WITH  Google
-              </p>
+              <p class="mt-4 text-center text-black">OR LOGIN WITH Google</p>
 
               <a
                 href="https://accounts.google.com/v3/signin/identifier?dsh=S1728887675%3A1683961516291843&continue=https%3A%2F%2Fwww.google.com%3Fhl%3Den-US&ec=GAlA8wE&hl=en&flowName=GlifWebSignIn&flowEntry=AddSession"
