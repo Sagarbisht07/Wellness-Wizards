@@ -7,12 +7,11 @@
 
 ## Technologies We Used
 - React.js
-- Chakra UI
+- TypeScript
+- Tailwind CSS
 - JavaScript
-- React-Redux
 - Browser LocalStorage
 - npm and JSON Server
-- import export ,Debouncing ,Dom , ES6.
 - MongoDB 
 - MongoDB ATLAS
 
