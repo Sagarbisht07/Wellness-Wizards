@@ -48,7 +48,7 @@ export const MainTitleLine = styled.span`
     left: 0;
     right: 0;
     height: 0.6rem;
-    background-color: rgb(255, 215, 0);
+    background-color: rgb(210, 161, 2);
     z-index: -1;
 
     @media all and (min-width: ${({ theme }) => theme.breakpoints.md}) {

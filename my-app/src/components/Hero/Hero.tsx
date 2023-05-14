@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 function calculateBMI(weight: number, height: number) {
   height = height / 100;
   const bmi = weight / (height * height);
-  return Number(bmi.toFixed(2)); // return BMI rounded to two decimal places
+  return Number(bmi.toFixed(2));
 }
 
 const Hero = (): JSX.Element => {
@@ -32,6 +32,7 @@ const Hero = (): JSX.Element => {
     const myweight = weight ?? "";
     let calculateBmi: number = calculateBMI(Number(myweight), Number(myheight));
     setBmi(calculateBmi);
+
     localStorage.setItem("bmi", calculateBmi.toString());
   }, [height, weight]);
 
@@ -40,13 +41,11 @@ const Hero = (): JSX.Element => {
       <MainDetails
         style={{
           marginLeft: "5rem",
-        }}
-      >
+        }}>
         <MainTitlte
           style={{
             color: "black",
-          }}
-        >
+          }}>
           Good health{" "}
           <MainTitleLine>
             starts <br />
@@ -60,20 +59,30 @@ const Hero = (): JSX.Element => {
         </MainDescription>
 
         <MainTitlte
-          style={{ color: "teal", fontSize: "30px", fontWeight: "bold" }}
-        >
-          Your BMI is :- {bmi ? `${bmi} 😊` : "`Please login`👍"}
+          style={{ color: "teal", fontSize: "30px", fontWeight: "bold" }}>
+          {weight && (
+            <span className="px-4 py-2  text-base rounded-full text-white  bg-indigo-500 text-bold ">
+              Your BMI Score {bmi}
+            </span>
+          )}
+          {!weight && (
+            <div>
+              <span className="px-4 py-2  text-base rounded-full text-white  bg-indigo-500 ">
+                To Get Your BMI Score Please Login
+              </span>
+            </div>
+          )}
         </MainTitlte>
         <br />
         <MainButtons>
-          <Link to={"/nutritional"}>
+          <Link to={"/started"}>
             <StyledButton primary={true}>
               Get Started <ArrowIcon />
             </StyledButton>
           </Link>
 
           <StyledButton>
-            <Link to={"/nutritional"}>Check Nutrition</Link> <PlayIcon />{" "}
+            <Link to={"/nutritional"}>Improve Your BMI Score</Link> <PlayIcon />{" "}
           </StyledButton>
         </MainButtons>
       </MainDetails>
