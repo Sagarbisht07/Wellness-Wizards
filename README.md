@@ -36,4 +36,4 @@ A glimpse of our website
 
 The landing page where users can see various categories along with their Geolocation.
 
-![Allproductpage]https://raw.githubusercontent.com/Sagarbisht07/Wellness-Wizards/2b4c54ebe8ec61832e05487fb2a35233b7da9e44/my-app/public/3.png
+![Allproductpage].https://raw.githubusercontent.com/Sagarbisht07/Wellness-Wizards/2b4c54ebe8ec61832e05487fb2a35233b7da9e44/my-app/public/3.png
