@@ -1,17 +1,17 @@
 import { Chart } from "react-google-charts";
 
 export const data = [
-  ["week", "workout", "calories", "gain"],
+  ["week", "calories", "workout", "gain"],
   ["week-1", 1000, 400, 100],
   ["week-2", 1170, 460, 250],
   ["week-3", 660, 1120, 300],
   ["week-4", 1030, 540, 350],
+  ["week-5", 1600, 740, 350],
 ];
 
 export const options = {
   chart: {
-    title: "Youe Progress Performance",
-    subtitle: "Sales, Expenses, and Profit: 2014-2017",
+    title: "Your Progress Performance",
   },
 };
 
