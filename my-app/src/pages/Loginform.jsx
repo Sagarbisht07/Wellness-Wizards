@@ -1,7 +1,72 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
+
 const Loginform = () => {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [data, setData] = React.useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = data;
+  const baseUrl = "https://wellness-q8lu.onrender.com";
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please fill all the fields!",
+      });
+      return;
+    }
+    setIsLoading(true);
+    try {
+      const res = await axios.post(`${baseUrl}/users/login`, data);
+      if (res.data.token) {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user", res.data.userName);
+        localStorage.setItem("height", res.data.height);
+        localStorage.setItem("weight", res.data.weight);
+        Swal.fire("", "Login Successfull!", "success");
+
+        setData({
+          email: "",
+          password: "",
+        });
+
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Invalid Credentials!",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <img
+        src="https://cdn.pixabay.com/animation/2022/10/11/03/16/03-16-39-160_512.gif"
+        alt="loading"
+        width={"80%"}
+      />
+    );
+  }
+
   return (
     <div>
       <section
@@ -13,7 +78,7 @@ const Loginform = () => {
           width: "30rem",
         }}>
         <div class="container flex items-center justify-center min-h-screen px-6 mx-auto">
-          <form class="w-full max-w-md">
+          <form onSubmit={handleSubmit} class="w-full max-w-md">
             <img class="w-1/2 mx-auto mb-4" src="logonew.png" alt="" />
 
             <h1 class="mt-3 text-2xl font-semibold text-gray-800 capitalize sm:text-3xl dark:text-white">
@@ -38,6 +103,8 @@ const Loginform = () => {
               </span>
 
               <input
+                value={email}
+                onChange={(e) => setData({ ...data, email: e.target.value })}
                 type="email"
                 class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Email address"
@@ -62,6 +129,8 @@ const Loginform = () => {
               </span>
 
               <input
+                value={password}
+                onChange={(e) => setData({ ...data, password: e.target.value })}
                 type="password"
                 class="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Password"

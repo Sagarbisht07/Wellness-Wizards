@@ -1,15 +1,65 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Rigster = () => {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [data, setData] = React.useState({
+    name: "",
+    weight: 0,
+    height: 0,
+    email: "",
+    password: "",
+  });
 
+  const { name, weight, height, email, password } = data;
+  const baseUrl = "https://wellness-q8lu.onrender.com";
+  const navigate = useNavigate();
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    if (!name || !weight || !height || !email || !password) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please fill all the fields!",
+      });
+      return;
+    }
 
-  
+    setIsLoading(true);
+    try {
+      await axios.post(`${baseUrl}/users/register`, data).then((res) => {
+        Swal.fire("", "Register Successfull!", "success");
+        navigate("/login");
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Invalid Credentials!",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <img
+        src="https://cdn.pixabay.com/animation/2022/10/11/03/16/03-16-39-160_512.gif"
+        alt="loading"
+        width={"60%"}
+      />
+    );
+  }
+
   return (
     <div
-    style={{
+      style={{
         backgroundImage: `url("https://blog.myfitnesspal.com/wp-content/uploads/2020/08/This-Is-the-Quickest-Way-to-Boost-Your-Mood-2-1140x545.jpg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
@@ -18,25 +68,24 @@ const Rigster = () => {
         width: "100%",
         overflow: "hidden",
         paddingTop: "4%",
-        
-    }}
-    >
-      <div class="w-full max-w-sm p-6 m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-gray-100"
+      }}>
+      <div
+        class="w-full max-w-sm p-6 m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-gray-100"
         style={{
-            opacity: "0.9",
-            }}
-
-      >
+          opacity: "0.9",
+        }}>
         <div class="flex justify-center mx-auto">
           <img class="w-1/2" src="logonew.png" alt="" />
         </div>
 
-        <form class="mt-6">
+        <form onSubmit={handleSubmit} class="mt-6">
           <div>
             <label for="username" class="block text-sm text-gray-800 ">
-              Username
+              name
             </label>
             <input
+              value={name}
+              onChange={(e) => setData({ ...data, name: e.target.value })}
               type="text"
               class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-100 dark:text-black dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
@@ -46,6 +95,8 @@ const Rigster = () => {
               Email
             </label>
             <input
+              value={email}
+              onChange={(e) => setData({ ...data, email: e.target.value })}
               type="text"
               class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-100 dark:text-black dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
@@ -55,6 +106,8 @@ const Rigster = () => {
               Height
             </label>
             <input
+              value={height}
+              onChange={(e) => setData({ ...data, height: e.target.value })}
               type="number"
               class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-100 dark:text-black dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
@@ -65,6 +118,8 @@ const Rigster = () => {
               Weight
             </label>
             <input
+              value={weight}
+              onChange={(e) => setData({ ...data, weight: e.target.value })}
               type="number"
               class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-100 dark:text-black dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
@@ -72,7 +127,9 @@ const Rigster = () => {
 
           <div class="mt-4">
             <div class="flex items-center justify-between">
-              <label for="password" class="block text-sm dark:text-black ">
+              <label
+                for="password"
+                className="block text-sm font-medium leading-6 text-gray-900">
                 Password
               </label>
               <a href="#" class="text-xs  dark:text-gray-400 hover:underline">
@@ -81,6 +138,8 @@ const Rigster = () => {
             </div>
 
             <input
+              value={password}
+              onChange={(e) => setData({ ...data, password: e.target.value })}
               type="password"
               class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-100 dark:text-black dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />

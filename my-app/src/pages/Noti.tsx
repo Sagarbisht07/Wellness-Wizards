@@ -25,7 +25,7 @@ function Noti(): JSX.Element {
           color: "black",
           width: "1%",
           fontSize: "1.5rem",
-          marginLeft: "-4rem",
+          marginLeft: "-5rem",
         }}
         onClick={handleOpen}>
         <MdOutlineNotificationsActive />

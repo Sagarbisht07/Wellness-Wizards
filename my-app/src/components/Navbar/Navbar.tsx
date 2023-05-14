@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 import MobileNav from "./MobileNavigation";
 import {
   Menu,
@@ -9,13 +10,46 @@ import {
 } from "../styles/Navbar.styled";
 import { StyledButton } from "../styles/Button.styled";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Noti from "../../pages/Noti";
+import Logout from "../../pages/Logout";
 
 const Navbar = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
+  const [name, setName] = React.useState("");
+  const navigate = useNavigate();
+  let myName = localStorage.getItem("user");
+  let token = localStorage.getItem("token");
+
+  React.useEffect(() => {
+    const name = myName ?? "";
+    setName(name);
+  }, [myName]);
 
   const toggleHandler = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleButtonClick = () => {
+    if (isLoggedIn()) {
+      localStorage.clear();
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const isLoggedIn = () => {
+    return Boolean(localStorage.getItem("token"));
+  };
+
+  // //handleNutrition
+  const handleNutrition = () => {
+    if (token) {
+      navigate("/nutritionalmain");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -35,7 +69,8 @@ const Navbar = (): JSX.Element => {
                 color: "black",
                 fontFamily: "dancing script",
                 fontSize: "1.2rem",
-              }}>
+              }}
+            >
               <Link to="/login">Workout</Link>
             </NavLink>
           </NavList>
@@ -46,9 +81,12 @@ const Navbar = (): JSX.Element => {
                 color: "black",
                 fontFamily: "dancing script",
                 fontSize: "1.2rem",
-              }}>
-              <Link to="/login">Nutritional</Link>
-              Nutritional
+              }}
+            >
+              <button
+                onClick={handleNutrition}
+              
+              >Nutritional</button>
             </NavLink>
           </NavList>
           <NavList>
@@ -58,8 +96,9 @@ const Navbar = (): JSX.Element => {
                 color: "black",
                 fontFamily: "dancing script",
                 fontSize: "1.2rem",
-              }}>
-              <Link to="/login">Progress Analytics</Link>
+              }}
+            >
+              <Link to="/progress">Progress Analytics</Link>
             </NavLink>
           </NavList>
           <NavList>
@@ -69,8 +108,9 @@ const Navbar = (): JSX.Element => {
                 color: "black",
                 fontFamily: "dancing script",
                 fontSize: "1.2rem",
-              }}>
-              <Link to="/login"> Educational Resources</Link>
+              }}
+            >
+              <Link to="/educational"> Educational Resources</Link>
             </NavLink>
           </NavList>
           <NavList>
@@ -80,11 +120,17 @@ const Navbar = (): JSX.Element => {
                 color: "black",
                 fontFamily: "dancing script",
                 fontSize: "1.2rem",
-              }}>
-              <Link to="/login">Login</Link>
+              }}
+            >
+              <button onClick={handleButtonClick}>
+                {isLoggedIn() ? <Logout/> : "Login"}
+              </button>
             </NavLink>
           </NavList>
-          <StyledButton primary={true}>Become a member</StyledButton>
+
+          <StyledButton primary={true}>
+            {`Welcome ${name.toUpperCase()}`}
+          </StyledButton>
         </NavLists>
         <Noti/>
       </StyledNavbar>
