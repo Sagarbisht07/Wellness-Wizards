@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { BiX as CloseIcon } from 'react-icons/bi';
-import  {Link} from 'react-scroll';
-
+import { Link } from 'react-scroll';
 
 type MobileStyledNavProps = {
   isOpen: boolean;

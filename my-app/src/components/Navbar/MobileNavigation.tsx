@@ -1,4 +1,3 @@
-
 import Image from '@/assets/program1-img.png';
 import { CloseMenu, MobileBottomText, MobileHeader, MobileImg, MobileLink, MobileList, MobileLogo, MobileMenuImage, MobileNavList, MobileStyledNav } from '../styles/MobileNav.styled';
 import { StyledButton } from '../styles/Button.styled';

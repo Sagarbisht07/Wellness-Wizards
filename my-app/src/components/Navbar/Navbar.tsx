@@ -71,7 +71,7 @@ const Navbar = (): JSX.Element => {
                 fontSize: "1.2rem",
               }}
             >
-              <Link to="/login">Workout</Link>
+              <Link to="/workout">Workout</Link>
             </NavLink>
           </NavList>
           <NavList>
