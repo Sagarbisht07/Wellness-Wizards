@@ -1,4 +1,5 @@
 # Wellness-Wizards
+Our mission is to put healthy principles into practice through programs that build a healthy spirit, mind and body for all.
 
 ## Authors
 
@@ -65,5 +66,5 @@ The landing page where users can see various categories along with their Geoloca
 
 
 
-### Wducation Page
+### Education Page
 <img width="946" alt="7" src="https://github.com/Sagarbisht07/Wellness-Wizards/assets/112753461/28cc7c7c-9e57-4af0-b425-b83ef03bf5ab">
