@@ -11,6 +11,7 @@ import Rigster from "../pages/Rigster";
 import ProgressAnalytics from "../pages/ProgressAnalytics";
 import Nutritional from "../pages/Nutritional";
 import NutrationMain from "../pages/NutrationMain";
+import { Workout } from "../components/Workout";
 
 const Router = (): JSX.Element => {
   return (
@@ -26,6 +27,7 @@ const Router = (): JSX.Element => {
         <Route path="/nutritional" element={<Nutritional />} />
         <Route path="/nutritionalmain" element={<NutrationMain />} />
         <Route path="/progress" element={<ProgressAnalytics />} />
+        <Route path="/workout" element={<Workout />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </div>

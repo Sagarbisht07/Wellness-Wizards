@@ -13,13 +13,19 @@ const Formresult = (): JSX.Element => {
   return (
     <div>
       {isVisible && (
-        <h1 className="text-3xl text-center font-bold mt-10 text-black mx-auto w-1/2 "
-        style={{
-            fontFamily:"inherit"
-        }}
-        
-        >
-          Creating a weakly deit plan according to your need{" "}
+        <h1
+          className="text-3xl text-center font-bold mt-10 text-black mx-auto w-1/2 "
+          style={{
+            fontFamily: "inherit",
+            fontSize: "1.5rem",
+            fontWeight: 700,
+            lineHeight: 1.2,
+            letterSpacing: "-.02em",
+            marginBottom: "1rem",
+          }}>
+          <span className="px-4 py-2  text-base rounded-full text-white  bg-indigo-500 ">
+            Creating a weakly diet plan according to your need{" "}
+          </span>
         </h1>
       )}
       {isVisible && (
