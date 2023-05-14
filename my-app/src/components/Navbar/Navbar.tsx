@@ -11,6 +11,8 @@ import {
 import { StyledButton } from "../styles/Button.styled";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Noti from "../../pages/Noti";
+import Logout from "../../pages/Logout";
 
 const Navbar = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,10 +43,10 @@ const Navbar = (): JSX.Element => {
     return Boolean(localStorage.getItem("token"));
   };
 
-  //handleNutrition
+  // //handleNutrition
   const handleNutrition = () => {
     if (token) {
-      navigate("/nutritional");
+      navigate("/nutritionalmain");
     } else {
       navigate("/login");
     }
@@ -81,7 +83,10 @@ const Navbar = (): JSX.Element => {
                 fontSize: "1.2rem",
               }}
             >
-              <button onClick={handleNutrition}>Nutritional</button>
+              <button
+                onClick={handleNutrition}
+              
+              >Nutritional</button>
             </NavLink>
           </NavList>
           <NavList>
@@ -118,7 +123,7 @@ const Navbar = (): JSX.Element => {
               }}
             >
               <button onClick={handleButtonClick}>
-                {isLoggedIn() ? "Logout" : "Login"}
+                {isLoggedIn() ? <Logout/> : "Login"}
               </button>
             </NavLink>
           </NavList>
@@ -127,6 +132,7 @@ const Navbar = (): JSX.Element => {
             {`Welcome ${name.toUpperCase()}`}
           </StyledButton>
         </NavLists>
+        <Noti/>
       </StyledNavbar>
     </>
   );

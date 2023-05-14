@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 
 const Loginform = () => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -17,6 +19,14 @@ const Loginform = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please fill all the fields!",
+      });
+      return;
+    }
     setIsLoading(true);
     try {
       const res = await axios.post(`${baseUrl}/users/login`, data);
@@ -25,11 +35,23 @@ const Loginform = () => {
         localStorage.setItem("user", res.data.userName);
         localStorage.setItem("height", res.data.height);
         localStorage.setItem("weight", res.data.weight);
-        alert("Login successful");
-        navigate("/");
+        Swal.fire("", "Login Successfull!", "success");
+
+        setData({
+          email: "",
+          password: "",
+        });
+
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
       }
     } catch (error) {
-      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Invalid Credentials!",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -37,16 +59,11 @@ const Loginform = () => {
 
   if (isLoading) {
     return (
-      <h1
-        style={{
-          color: "red",
-          fontSize: "30px",
-          fontWeight: "bold",
-          textAlign: "center",
-        }}
-      >
-        Loading...
-      </h1>
+      <img
+        src="https://cdn.pixabay.com/animation/2022/10/11/03/16/03-16-39-160_512.gif"
+        alt="loading"
+        width={"80%"}
+      />
     );
   }
 
@@ -59,8 +76,7 @@ const Loginform = () => {
           backgroundSize: "cover",
           backgroundPosition: "center",
           width: "30rem",
-        }}
-      >
+        }}>
         <div class="container flex items-center justify-center min-h-screen px-6 mx-auto">
           <form onSubmit={handleSubmit} class="w-full max-w-md">
             <img class="w-1/2 mx-auto mb-4" src="logonew.png" alt="" />
@@ -77,8 +93,7 @@ const Loginform = () => {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  stroke-width="2"
-                >
+                  stroke-width="2">
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -104,8 +119,7 @@ const Loginform = () => {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  stroke-width="2"
-                >
+                  stroke-width="2">
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -132,8 +146,7 @@ const Loginform = () => {
 
               <a
                 href="https://accounts.google.com/v3/signin/identifier?dsh=S1728887675%3A1683961516291843&continue=https%3A%2F%2Fwww.google.com%3Fhl%3Den-US&ec=GAlA8wE&hl=en&flowName=GlifWebSignIn&flowEntry=AddSession"
-                class="flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
-              >
+                class="flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <svg class="w-6 h-6 mx-2" viewBox="0 0 40 40">
                   <path
                     d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z"
@@ -158,8 +171,7 @@ const Loginform = () => {
                   style={{
                     color: "blue.500",
                     cursor: "pointer",
-                  }}
-                >
+                  }}>
                   Sign in with Google
                 </span>
               </a>
@@ -167,8 +179,7 @@ const Loginform = () => {
               <div class="mt-6 text-center ">
                 <Link
                   to="/register"
-                  class="text-sm text-blue-500 hover:underline dark:text-blue-400"
-                >
+                  class="text-sm text-blue-500 hover:underline dark:text-blue-400">
                   Don’t have an account yet? Sign up
                 </Link>
               </div>

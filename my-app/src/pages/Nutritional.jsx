@@ -1,14 +1,19 @@
 import axios from "axios";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import BMI from "./BMI";
 
 const Nutritional = () => {
   const [data, setData] = React.useState([]);
   const [myBmi, setMyBmi] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(true);
   const baseUrl = "https://wellness-q8lu.onrender.com";
+  const weight = localStorage.getItem("weight") || 0;
+
+  const navigate = useNavigate();
 
   React.useEffect(() => {
-    const bmi = localStorage.getItem("bmi");
+    const bmi = localStorage.getItem("bmi") || 0;
     setMyBmi(Number(bmi));
 
     const fetchData = async () => {
@@ -22,21 +27,21 @@ const Nutritional = () => {
       }
       setIsLoading(false);
     };
-    fetchData();
+    if (!weight) {
+      navigate("/login");
+    } else {
+      fetchData();
+    }
   }, []);
 
   if (isLoading) {
     return (
-      <h1
-        style={{
-          color: "red",
-          fontSize: "30px",
-          fontWeight: "bold",
-          textAlign: "center",
-        }}
-      >
-        Loading...
-      </h1>
+      <img
+        src="https://cdn.pixabay.com/animation/2022/10/11/03/16/03-16-39-160_512.gif"
+        alt="loading"
+        width={"20%"}
+        style={{ margin: "auto" }}
+      />
     );
   }
 
@@ -57,30 +62,7 @@ const Nutritional = () => {
   return (
     <div style={{ color: "black" }}>
       {filteredData?.map((item) => (
-        <div
-          style={{
-            border: "1px solid black",
-            marginTop: "10px",
-            padding: "10px",
-          }}
-          key={item._id}
-        >
-          <h2>
-            BMI:{" "}
-            {item.bmi === 17
-              ? `${myBmi} underweight`
-              : item.bmi === 21
-              ? `${myBmi} overweight`
-              : `${myBmi} healthy`}
-          </h2>
-          <p>Exercise: {item.exercise}</p>
-          <p>Meals: {item.meals}</p>
-          <p>Meditation: {item.meditation}</p>
-          <p>Sleep: {item.sleep}</p>
-          <p>Social: {item.social}</p>
-          <p>Water: {item.water}</p>
-          <p>Work: {item.work}</p>
-        </div>
+        <BMI filteredData={filteredData} myBmi={myBmi} />
       ))}
     </div>
   );
