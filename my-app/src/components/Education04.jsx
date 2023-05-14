@@ -18,6 +18,9 @@ export const Education04 = () => {
         </div>
 
         <div>
+          <h2 className="mb-4 font-sans text-3xl font-bold tracking-tight text-red-900 sm:text-4xl sm:leading-none">
+            About BMI
+          </h2>
           <p className="text-base text-teal-700 md:text-lg">
             A person’s Body-Mass Index, or BMI, helps them check whether they’re
             a healthy weight for their height. If a person weighs less or more
@@ -32,7 +35,7 @@ export const Education04 = () => {
 
         <div>
           <h2 className="mb-4 font-sans text-3xl font-bold tracking-tight text-red-900 sm:text-4xl sm:leading-none">
-          BMI Formula
+            BMI Formula
           </h2>
           <p className="text-base text-teal-700 md:text-lg">
             To arrive at your BMI figure, you need to know your weight in
